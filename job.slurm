@@ -6,9 +6,9 @@
 #SBATCH --ntasks-per-node=8
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=40G
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:8
 #SBATCH --constraint=gpu40g
-#SBATCH --time=01:00:00
+#SBATCH --time=5-06:00:00
 #SBATCH --output=output-deepdive.txt
 
 
