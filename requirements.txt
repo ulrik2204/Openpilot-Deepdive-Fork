@@ -3,6 +3,7 @@ efficientnet_pytorch
 numpyencoder
 tensorboard
 torch
+torchvision
 tqdm
 numpy
 Pillow
