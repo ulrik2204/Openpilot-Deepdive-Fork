@@ -19,7 +19,7 @@ module load Python/3.9.6-GCCcore-11.2.0
 # Change to the work dir 
 cd /cluster/home/ulrikro/code/Openpilot-Deepdive-Fork
 
-source op-dd-3.7/bin/activate
+source venv/bin/activate
 
 PORT=23333 srun python main.py
 #PORT=23333 srun python main.py --resume=/path/to/checkpoint

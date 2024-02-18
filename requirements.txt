@@ -2,4 +2,10 @@ nuscenes-devkit
 efficientnet_pytorch
 numpyencoder
 tensorboard
+torch
+tqdm
+numpy
+Pillow
+opencv-python
+matplotlib
 # pytorch-lightning
