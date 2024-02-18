@@ -18,7 +18,7 @@ module load Python/3.9.6-GCCcore-11.2.0
 # Change to the work dir 
 cd /cluster/home/ulrikro/code/Openpilot-Deepdive-Fork
 
-source venv/bin/activae
+source venv/bin/activate
 
 PORT=23333 srun python test.py
 
