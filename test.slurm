@@ -19,6 +19,7 @@ module load Python/3.9.6-GCCcore-11.2.0
 cd /cluster/home/ulrikro/code/Openpilot-Deepdive-Fork
 
 source venv/bin/activate
+pip install -r requirements.txt
 
 PORT=23333 srun python test.py
 
