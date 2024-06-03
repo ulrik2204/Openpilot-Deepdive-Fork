@@ -110,7 +110,8 @@ def calculate_distance(waypoints):
 @click.command()
 @click.option("--folder", default="data/", help="Folder to comma base")
 def main(folder: str):
-    Path("./stats").mkdir(exist_ok=True, parents=True)
+    stats_folder = Path("./stats") / folder
+    stats_folder.mkdir(exist_ok=True, parents=True)
     print("Using folder", folder)
     base_folder = Path(folder)
     comma_folder = base_folder / "comma2k19"
@@ -154,7 +155,7 @@ def main(folder: str):
         for key, value in stats.items():
             plt.plot(value)
             plt.title(key)
-            plt.savefig(f"stats/{name}_{key}.png")
+            plt.savefig((stats_folder / f"{name}_{key}.png").as_posix())
             plt.close()
         print("Saved stats for batch", b_idx, "of ", len(dataloader))
 
