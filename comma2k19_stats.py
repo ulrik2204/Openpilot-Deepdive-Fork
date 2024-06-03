@@ -13,8 +13,8 @@ from data import Comma2k19SequenceDataset
 
 
 def calculate_speed(waypoints: torch.Tensor, time_offsets: np.ndarray):
-    start_waypoint = waypoints[:, 0]
-    middle_waypoint = waypoints[:, 3]
+    start_waypoint = waypoints[0]
+    middle_waypoint = waypoints[3]
     # end_waypoint = waypoints[-1]
     dist_middle = np.linalg.norm(middle_waypoint - start_waypoint)
     # dist_end = np.linalg.norm(end_waypoint - middle_waypoint)
@@ -136,6 +136,7 @@ def main():
             # pred_conf = softmax(pred_cls, dim=-1).cpu().numpy()[0]
 
             inputs, labels = inputs.cpu().numpy()[0], labels.cpu().numpy()[0]
+            print("labels", labels.shape, "\n", labels)
             stats["speeds"].append(calculate_speed(labels, data.t_anchors))
             stats["curvatures"].append(calculate_curvature(labels))
             stats["yaws"].append(calculate_yaw(labels))
