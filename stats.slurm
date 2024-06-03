@@ -6,7 +6,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=120G
-#SBATCH --time=1-06:00:00
+#SBATCH --time=0-04:00:00
 #SBATCH --output=output-deepdive-stats.txt
 
 
