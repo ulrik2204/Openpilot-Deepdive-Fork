@@ -90,23 +90,6 @@ def calculate_yaw(waypoints):
     return yaw
 
 
-def calculate_distance(waypoints):
-    """
-    Calculate the distance of the trajectory described by the waypoints.
-
-    Args:
-        waypoints (np.ndarray): An array of shape (N, 2) representing the x and y coordinates of the waypoints.
-
-    Returns:
-        float: The distance of the trajectory.
-    """
-
-    start_waypoint = waypoints[0]
-    end_waypoint = waypoints[3]
-    distance = np.linalg.norm(end_waypoint - start_waypoint)
-    return distance
-
-
 @click.command()
 @click.option("--folder", default="data/", help="Folder to comma base")
 def main(folder: str):
@@ -124,6 +107,7 @@ def main(folder: str):
         return_origin=False,
     )
     dataloader = DataLoader(data, 1, num_workers=0, shuffle=False)
+    stats = {"speeds": [], "curvatures": [], "yaws": []}
 
     seq_idx = 0
     for b_idx, batch in enumerate(dataloader):
@@ -132,10 +116,8 @@ def main(folder: str):
             batch["seq_future_poses"].cpu(),
         )
         seq_length = seq_labels.size(1)
-        stats = {"speeds": [], "curvatures": [], "yaws": [], "distance": []}
 
         # hidden = torch.zeros((2, bs, 512), device=seq_inputs.device)
-
         for t in range(seq_length):
 
             inputs, labels = seq_inputs[:, t, :, :, :], seq_labels[:, t, :, :]
@@ -147,19 +129,19 @@ def main(folder: str):
             stats["speeds"].append(calculate_speed(labels, data.t_anchors))
             stats["curvatures"].append(calculate_curvature(labels))
             stats["yaws"].append(calculate_yaw(labels))
-            stats["distance"].append(calculate_distance(labels))
-        time = datetime.now().strftime("%d-%H-%M")
-        name = f"{time}_{b_idx}"
-        with open(f"stats/{name}_dict.pkl", "wb") as f:
-            pickle.dump(stats, f)
-        for key, value in stats.items():
-            plt.plot(value)
-            plt.title(key)
-            plt.savefig((stats_folder / f"{name}_{key}.png").as_posix())
-            plt.close()
-        print("Saved stats for batch", b_idx, "of ", len(dataloader))
+        print("Done with batch", b_idx, "of ", len(dataloader), flush=True)
 
         seq_idx += 1
+
+    time = datetime.now().strftime("%d-%H-%M")
+    name = f"{time}"
+    for key, value in stats.items():
+        with open(f"stats/{name}_dict.pkl", "wb") as f:
+            pickle.dump(stats, f)
+        plt.plot(value)
+        plt.title(key)
+        plt.savefig((stats_folder / f"{name}_{key}.png").as_posix())
+        plt.close()
 
 
 if __name__ == "__main__":
