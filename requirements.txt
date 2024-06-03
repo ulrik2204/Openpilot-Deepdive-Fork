@@ -9,4 +9,5 @@ numpy
 Pillow
 opencv-python
 matplotlib
+click
 # pytorch-lightning

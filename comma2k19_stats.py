@@ -2,6 +2,7 @@ import pickle
 from datetime import datetime
 from pathlib import Path
 
+import click
 import numpy as np
 import torch
 from matplotlib import pyplot as plt
@@ -106,11 +107,17 @@ def calculate_distance(waypoints):
     return distance
 
 
-def main():
+@click.command()
+@click.option("--folder", default="data/", help="Folder to comma base")
+def main(folder: str):
     Path("./stats").mkdir(exist_ok=True, parents=True)
+    print("Using folder", folder)
+    base_folder = Path(folder)
+    comma_folder = base_folder / "comma2k19"
+    file = base_folder / "comma2k19_val_non_overlap.txt"
     data = Comma2k19SequenceDataset(
-        "data/comma2k19_val_non_overlap.txt",
-        "data/comma2k19/",
+        file.as_posix(),
+        comma_folder.as_posix() + "/",
         "train",
         use_memcache=False,
         return_origin=False,
