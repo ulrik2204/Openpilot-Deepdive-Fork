@@ -120,8 +120,8 @@ def main():
     seq_idx = 0
     for b_idx, batch in enumerate(dataloader):
         seq_inputs, seq_labels = (
-            batch["seq_input_img"].cuda(),
-            batch["seq_future_poses"].cuda(),
+            batch["seq_input_img"].cpu(),
+            batch["seq_future_poses"].cpu(),
         )
         seq_length = seq_labels.size(1)
         stats = {"speeds": [], "curvatures": [], "yaws": [], "distance": []}
