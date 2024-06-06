@@ -203,6 +203,16 @@ def main(rank, world_size, args):
                         pred_cls, pred_trajectory, hidden = model(inputs, hidden)
 
                         metrics = get_val_metric(pred_cls, pred_trajectory.view(-1, args.M, args.num_pts, 3), labels)
+
+                        val_cls_loss, val_reg_loss = loss(
+                                    pred_cls, pred_trajectory, labels
+                                )
+                        val_total_loss = (
+                            val_cls_loss + args.mtp_alpha * val_reg_loss.mean()
+                        )
+                        saved_metric_epoch["val/total_loss"].append(
+                            val_total_loss.float().mean().item()
+                        )
                         
                         for k, v in metrics.items():
                             saved_metric_epoch[k].append(v.float().mean().item())
