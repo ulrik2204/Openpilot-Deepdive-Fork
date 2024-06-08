@@ -113,6 +113,7 @@ class SequenceBaselineV1(nn.Module):
 
 
 def main(rank, world_size, args):
+    print("args", args, flush=True)
     if rank == 0:
         writer = SummaryWriter()
 
