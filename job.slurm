@@ -23,7 +23,7 @@ cd /cluster/home/ulrikro/code/Openpilot-Deepdive-Fork
 source venv/bin/activate
 pip install -r requirements.txt
 
-PORT=23333 srun python main.py --batch-size 6 --lr 0.0001 --epochs 100 --optimzer adamw
+PORT=23333 srun python main.py --batch-size 6 --lr 0.0001 --epochs 100 --optimizer adamw
 #PORT=23333 srun python main.py --resume=/path/to/checkpoint
 
 # unload the required python module
