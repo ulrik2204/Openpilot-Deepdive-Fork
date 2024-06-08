@@ -38,7 +38,7 @@ def get_hyperparameters(parser: ArgumentParser):
     parser.add_argument('--M', type=int, default=5)
     parser.add_argument('--num_pts', type=int, default=33)
     parser.add_argument('--mtp_alpha', type=float, default=1.0)
-    parser.add_argument('--optimizer', type=str, default='sgd')
+    parser.add_argument('--optimizer', type=str, default='adamw')
     parser.add_argument('--sync_bn', type=bool, default=True)
     parser.add_argument('--tqdm', type=bool, default=False)
     parser.add_argument('--optimize_per_n_step', type=int, default=40)
