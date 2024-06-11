@@ -192,6 +192,7 @@ def main(rank, world_size, args):
             model.eval()
             with torch.no_grad():
                 saved_metric_epoch = get_val_metric_keys()
+                saved_metric_epoch['val/total_loss'] = []
                 for batch_idx, data in enumerate(tqdm(val_dataloader, leave=False, disable=disable_tqdm, position=1)):
                     seq_inputs, seq_labels = data['seq_input_img'].cuda(), data['seq_future_poses'].cuda()
 
