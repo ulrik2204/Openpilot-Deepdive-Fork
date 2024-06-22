@@ -44,7 +44,6 @@ def fit_circle(points):
     xc, yc = result.x
     Ri = calc_R(xc, yc)
     R = np.mean(Ri)
-
     return xc, yc, R
 
 
@@ -88,6 +87,11 @@ def calculate_yaw(waypoints):
         end_waypoint[1] - start_waypoint[1], end_waypoint[0] - start_waypoint[0]
     )
     return yaw
+
+
+def main2():
+    points = np.array([[0, 0], [1, 0], [2, 1], [3, 1]])
+    print(calculate_curvature(points))
 
 
 @click.command()
@@ -145,4 +149,5 @@ def main(folder: str):
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    main2()
